@@ -1,39 +1,34 @@
 #include "sort.h"
 
+/**
+ * insert_node - A function to insert a node at
+ * the appropraite position in a doubly linked
+ * list
+ *
+ * @tail: The tail of the doubly linked list
+ * @node: The node we want to insert
+ */
 
-void insert_node(listint_t **head, listint_t *node)
-{
-	listint_t *moving_node;
-
-	if (*head == NULL)
-	{
-		node->next = NULL;
-		node->prev = NULL;
-		*head = node;
-	}
-	else
-	{
-		moving_node = *head;
-
-		while (moving_node->next != NULL)
-			moving_node = moving_node->next;
-
-		node->next = NULL;
-		node->prev = moving_node;
-		moving_node->next = node;
-	}
-}
-
-void swap_node(listint_t *first_node, listint_t *second_node)
+void insert_node(listint_t *list, listint_t *tail, listint_t *node)
 {
 	listint_t *temp;
 
-	if (first_node == second_node)
-		return;
-	temp = malloc(sizeof(listint_t));
-	if (!temp)
-		return;
-	temp = {.n = first_node->n, .next = , .prev = };
+	if (node)
+	{
+		while (tail)
+		{
+			if (node->n < tail->n)
+			{
+				temp = node;
+				tail->next = node->next;
+				tail->prev = node->prev;
+				node->next = temp->next;
+				node->prev = temp->prev;
+				print_list(list);
+			}
+			tail = tail->prev;
+		}
+	}
 }
 
 /**
@@ -44,26 +39,16 @@ void swap_node(listint_t *first_node, listint_t *second_node)
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *moving_node;
-	listint_t *smallest;
-	listint_t *sorted;
-	listint_t *next_node;
+	listint_t *moving;
+	listint_t *next;
+	listint_t *sorted_tail;
 
-	sorted = NULL;
-	moving_node = *list;
-	next_node = moving_node;
-	while (moving_node)
+	sorted_tail = *list;
+	moving = sorted_tail->next;
+	while (moving)
 	{
-		next_node = moving_node->next;
-		smallest = moving_node;
-		while (next_node)
-		{
-			next_node = next_node->next;
-			if (smallest->n > next_node->)
-				swap_node(&smallest, &next_node);
-		}
-		insert_node(tail_of_sorted, smallest);
-		moving_node = smallest->next;
+		next = moving->next;
+		insert_node(*list, &sorted_tail, moving);
+		moving = next;
 	}
-
 }
