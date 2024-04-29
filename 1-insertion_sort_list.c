@@ -5,7 +5,7 @@
  * the appropraite position in a doubly linked
  * list
  *
- * @tail: The tail of the doubly linked list
+ * @list: The doubly linked list representing the list
  * @node: The node we want to insert
  */
 
