@@ -9,25 +9,36 @@
  * @node: The node we want to insert
  */
 
-void insert_node(listint_t *list, listint_t *tail, listint_t *node)
+void insert_node(listint_t **list, listint_t *node)
 {
 	listint_t *temp;
 
-	if (node)
+	while (node->prev != NULL && node->n < (node->prev)->n)
 	{
-		while (tail)
+		temp = node->prev;
+
+		if ((node->prev)->prev != NULL)
 		{
-			if (node->n < tail->n)
-			{
-				temp = node;
-				tail->next = node->next;
-				tail->prev = node->prev;
-				node->next = temp->next;
-				node->prev = temp->prev;
-				print_list(list);
-			}
-			tail = tail->prev;
+			((node->prev)->prev)->next = node;
+			node->prev = (node->prev)->prev;
 		}
+		else
+		{
+			node->prev = NULL;
+			*list = node;
+		}
+		if (node->next)
+		{
+			(node->next)->prev = temp;
+			temp->next = node->next;
+		}
+		else
+		{
+			temp->next = NULL;
+		}
+		node->next = temp;
+		temp->prev = node;
+		print_list(*list);
 	}
 }
 
@@ -48,7 +59,7 @@ void insertion_sort_list(listint_t **list)
 	while (moving)
 	{
 		next = moving->next;
-		insert_node(*list, &sorted_tail, moving);
+		insert_node(list, moving);
 		moving = next;
 	}
 }
