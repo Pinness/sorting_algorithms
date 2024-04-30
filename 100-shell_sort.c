@@ -49,6 +49,9 @@ void shell_sort(int *array, size_t size)
 	size_t step;
 	size_t i;
 
+	if (!array || size < 2)
+		return;
+
 	step = 1;
 	while (step < size)
 		step = (step * 3) + 1;
