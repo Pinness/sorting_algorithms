@@ -26,7 +26,7 @@ void insert_shell(int *array, size_t size, size_t tail, size_t step)
 			temp = array[moving];
 			array[moving] = array[tail];
 			array[tail] = temp;
-			if (tail > step)
+			if (tail >= step)
 				tail = tail - step;
 			else
 				tail = tail + step;
