@@ -54,7 +54,7 @@ void insertion_sort_list(listint_t **list)
 	listint_t *next;
 	listint_t *sorted_tail;
 
-	if (!*list)
+	if (!list || !*list)
 		return;
 	sorted_tail = *list;
 	moving = sorted_tail->next;
